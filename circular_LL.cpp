@@ -56,7 +56,8 @@ void printList(Node *node)
 	{ 
 		cout<<node->data<<" "; 
 		node = node->next; 
-	} 
+	}
+	cout<<endl;
 } 
 
 Node *newNode(int key) 
@@ -67,15 +68,23 @@ Node *newNode(int key)
 	return temp; 
 } 
 
+void push(Node** head_ref, int new_data) 
+{
+	Node* new_node = new Node; 
+	new_node->data = new_data; 
+	new_node->next = (*head_ref); 
+	(*head_ref) = new_node; 
+}
+
 int main() 
 {
-	Node *head = newNode(1); 
-    head->next = newNode(2); 
-    head->next->next = newNode(3); 
-    head->next->next->next = newNode(4); 
-    head->next->next->next->next = newNode(5);
-    head->next->next->next->next->next = newNode(2);
-    head->next->next->next->next->next->next = newNode(3);
+	Node *head = NULL;
+
+	int x;
+	while(x!=-1){
+		cin>>x;
+		push(&head,x);
+	} 
 
 	detectAndRemoveLoop(head);
 
