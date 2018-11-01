@@ -5,7 +5,12 @@ class Node
 {
 public:
 	int data; 
-	Node* next; 
+	Node* next;
+
+	Node(int d) {
+		data = d;
+		next = NULL;
+	}
 }; 
 
 Node *reverse (Node *head, int k) 
@@ -31,12 +36,24 @@ Node *reverse (Node *head, int k)
 	return prev; 
 }
 
-void push(Node** head_ref, int new_data) 
-{
-	Node* new_node = new Node; 
-	new_node->data = new_data; 
-	new_node->next = (*head_ref); 
-	(*head_ref) = new_node; 
+void insertATHead(Node *&head, int data) {
+	Node *new_node = new Node(data);
+	new_node->next = head;
+	head = new_node;
+}
+
+void insertAtTail(Node *&head, int data) {
+	if(head == NULL) {
+		insertATHead(head, data);
+		return;
+	}
+	Node *temp = head;
+	while(temp->next != NULL) {
+		temp = temp->next;
+	}
+	Node *new_node = new Node(data);
+	temp->next = new_node;
+	return;
 } 
 
 void printList(Node *node) 
@@ -58,10 +75,8 @@ int main(void)
 	int x;
 	for(int i=0;i<n;i++){
 		cin>>x;
-		push(&head,x);
+		insertAtTail(head,x);
 	}
-
-	printList(head);
 
 	head = reverse(head, k);
 

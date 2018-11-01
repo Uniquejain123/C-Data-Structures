@@ -5,38 +5,40 @@ class Node
 {
 public:
 	int data; 
-	Node* next; 
+	Node* next;
+
+	Node(int d) {
+		data = d;
+		next = NULL;
+	}
 }; 
 
 void removeLoop(Node *, Node *); 
 
-int detectAndRemoveLoop(Node *list) 
-{ 
-	Node *slow_p = list, *fast_p = list; 
+bool cycleDetect(Node *head) {
+		if(head == NULL or head->next == NULL) {
+			return head;
+		}
 
-	while (slow_p && fast_p && fast_p->next) 
-	{ 
-		slow_p = slow_p->next; 
-		fast_p = fast_p->next->next; 
+		Node *slow = head;
+		Node *fast = head;
+		while(fast!= NULL and fast->next!=NULL) {
+			fast = fast->next->next;
+			slow = slow->next;
+			if(slow==fast) {
+				return true;
+			}
+		}	
+		return false;
+	}
 
-		if (slow_p == fast_p) 
-		{ 
-			removeLoop(slow_p, list); 
-			return 1; 
-		} 
-	} 
+void removeLoop(Node *loop_node, Node *head){
 
-	return 0; 
-} 
-
-void removeLoop(Node *loop_node, Node *head) 
-{ 
 	Node *ptr1; 
 	Node *ptr2; 
 
 	ptr1 = head; 
-	while (1) 
-	{
+	while(true){
 		ptr2 = loop_node; 
 		while (ptr2->next != loop_node && ptr2->next != ptr1){
 			ptr2 = ptr2->next; 
@@ -50,8 +52,8 @@ void removeLoop(Node *loop_node, Node *head)
 	ptr2->next = NULL; 
 } 
 
-void printList(Node *node) 
-{ 
+void printList(Node *node){
+
 	while (node != NULL) 
 	{ 
 		cout<<node->data<<" "; 
@@ -68,12 +70,24 @@ Node *newNode(int key)
 	return temp; 
 } 
 
-void push(Node** head_ref, int new_data) 
-{
-	Node* new_node = new Node; 
-	new_node->data = new_data; 
-	new_node->next = (*head_ref); 
-	(*head_ref) = new_node; 
+void insertATHead(Node *&head, int data) {
+	Node *new_node = new Node(data);
+	new_node->next = head;
+	head = new_node;
+}
+
+void insertAtTail(Node *&head, int data) {
+	if(head == NULL) {
+		insertATHead(head, data);
+		return;
+	}
+	Node *temp = head;
+	while(temp->next != NULL) {
+		temp = temp->next;
+	}
+	Node *new_node = new Node(data);
+	temp->next = new_node;
+	return;
 }
 
 int main() 
@@ -83,7 +97,7 @@ int main()
 	int x;
 	while(x!=-1){
 		cin>>x;
-		push(&head,x);
+		insertAtTail(head,x);
 	} 
 
 	detectAndRemoveLoop(head);
