@@ -63,7 +63,9 @@ int main()
 	int n,k;
 	while(n!=-1){
 		cin>>n;
-		insertAtTail(head,n);
+		if(n!=-1){
+			insertAtTail(head,n);
+		}
 	}
 	cin>>k;
 

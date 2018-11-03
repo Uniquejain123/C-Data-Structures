@@ -60,15 +60,7 @@ void printList(Node *node){
 		node = node->next; 
 	}
 	cout<<endl;
-} 
-
-Node *newNode(int key) 
-{ 
-	Node *temp = (Node*)malloc(sizeof(Node)); 
-	temp->data = key; 
-	temp->next = NULL; 
-	return temp; 
-} 
+}
 
 void insertATHead(Node *&head, int data) {
 	Node *new_node = new Node(data);
@@ -104,4 +96,4 @@ int main()
 
 	printList(head); 
 	return 0; 
-} 
+}
