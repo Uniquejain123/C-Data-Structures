@@ -3,7 +3,6 @@
 #include<queue>
 using namespace std;
 
-
 class Graph{
 	int V;
 public:
@@ -25,11 +24,10 @@ public:
 		queue<int> q;
 		q.push(s);
 
-
 		int *dist = new int[V];
 		//Init all nodes with inf dist
 		for(int i=0;i<V;i++){
-			dist[i] = INT_MAX;
+			dist[i] = INT8_MAX;
 		}
 		dist[s] = 0;
 
@@ -38,7 +36,7 @@ public:
 			q.pop();
 
 			for(auto child:l[node]){
-				if(dist[child]==INT_MAX){
+				if(dist[child]==INT8_MAX){
 					q.push(child);
 					dist[child] = dist[node] + 1;
 				}	
@@ -54,7 +52,6 @@ public:
 };
 
 int main(){
-
 
     int board[50] = {0};
     board[2]= 13;
