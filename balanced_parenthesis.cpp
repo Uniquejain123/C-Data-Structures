@@ -7,8 +7,8 @@ bool parenthesis(string str) {
 	int current_max = 0;
 	stack<char> st;
 	for(int i=0;i<str.size();i++) {
-		if(str[i] == '(') {
-			st.push('(');
+		if(str[i] == '(' || str[i] == '{' || str[i] == '[') {
+			st.push(str[i]);
 			current_max++;
 			if(global_max < current_max) {
 				global_max = current_max;
@@ -22,8 +22,22 @@ bool parenthesis(string str) {
 				st.pop();
 			}
 
-		} else {
-			// Nothing
+		} else if(str[i] == '}'){
+			if(st.empty()) {
+				return false;
+			}
+			if(!st.empty() and st.top() == '{') {
+				current_max--;
+				st.pop();
+			}
+		} else if(str[i] == ']'){
+			if(st.empty()) {
+				return false;
+			}
+			if(!st.empty() and st.top() == '[') {
+				current_max--;
+				st.pop();
+			}
 		}
 	}
 	if(current_max > 0) {
@@ -38,10 +52,10 @@ int main(int argc, char const *argv[])
 	cin>>str;
 	int num=parenthesis(str);
 	if(num!=0){
-		cout<<"Yes";
+		cout<<"Yes"<<endl;
 	}
 	else{
-		cout<<"No";
+		cout<<"No"<<endl;
 	}
 	return 0;
 }
